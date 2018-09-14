@@ -1,0 +1,23 @@
+{
+  "name": "risk_parameters",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:becual/risk_parameters.git",
+  "author": "camilo henriquez <camilo@becual.com>",
+  "license": "MIT",
+  "scripts": {
+    "setupTest": "./scripts/setup.sh",
+    "test:integration": "docker-compose up -d && yarn setupTest && sam local invoke --docker-network example_network -t templateDev.yaml \"RiskParameters\" -e event.json",
+    "test:watch": "docker-compose up -d && yarn setupTest && npx node -r dotenv/config ./node_modules/.bin/ava -v -w './**/*.test.js'",
+    "test": "docker-compose up -d && yarn setupTest && npx nyc node -r dotenv/config ./node_modules/.bin/ava --reporter=lcov --reporter=text --check-coverage"
+  },
+  "devDependencies": {
+    "ava": "^0.25.0",
+    "dotenv": "^6.0.0",
+    "eslint": "^5.5.0",
+    "nyc": "^13.0.1"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.313.0"
+  }
+}

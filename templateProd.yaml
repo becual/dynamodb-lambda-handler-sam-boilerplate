@@ -1,0 +1,15 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Description: Parameter handling in dynamoDB - production template
+
+Resources:
+  RiskParameters:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.handler
+      Runtime: nodejs8.10
+      MemorySize: 128
+      Environment:
+        Variables:
+          DYNAMODB_PARAMS_TABLE: POR_DEFINIR

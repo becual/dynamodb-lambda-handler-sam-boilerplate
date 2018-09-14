@@ -1,0 +1,45 @@
+{
+    "LocalSecondaryIndexes": [
+        {
+            "IndexName": "uuidScan",
+            "Projection": {
+                "ProjectionType": "ALL"
+            },
+            "KeySchema": [
+                {
+                    "KeyType": "HASH",
+                    "AttributeName": "parameterType"
+                },
+                {
+                    "KeyType": "RANGE",
+                    "AttributeName": "searchIndex"
+                }
+            ]
+        }
+    ],
+    "AttributeDefinitions": [
+        {
+            "AttributeName": "parameterType",
+            "AttributeType": "S"
+        },
+        {
+            "AttributeName": "searchIndex",
+            "AttributeType": "N"
+        }
+    ],
+    "ProvisionedThroughput": {
+        "WriteCapacityUnits": 5,
+        "ReadCapacityUnits": 5
+    },
+    "TableName": "dev.example.parameters",
+    "KeySchema": [
+        {
+            "KeyType": "HASH",
+            "AttributeName": "parameterType"
+        },
+        {
+            "KeyType": "RANGE",
+            "AttributeName": "searchIndex"
+        }
+    ]
+}

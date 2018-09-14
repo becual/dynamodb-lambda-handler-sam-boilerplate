@@ -1,0 +1,44 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Description: Parameter handling in dynamoDB - develop template
+
+Resources:
+  RiskParameters:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.handler
+      Runtime: nodejs8.10
+      Policies: AWSLambdaDynamoDBExecutionRole
+      MemorySize: 128
+      Timeout: 60
+      Environment:
+        Variables:
+          DYNAMODB_PARAMS_TABLE: dev.example.parameters
+          STAGE: dev
+
+  dev.example.parameters:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: parameterType
+          AttributeType: S
+        - AttributeName: searchIndex
+          AttributeType: N
+      KeySchema:
+        - AttributeName: ParameterType
+          KeyType: HASH
+        - AttributeName: searchIndex
+          KeyType: RANGE
+      LocalSecondaryIndexes:
+      - IndexName: uuidScan
+        KeySchema:
+        - AttributeName: ParameterType
+          KeyType: HASH
+        - AttributeName: searchIndex
+          KeyType: RANGE
+        Projection:
+          ProjectionType: KEYS_ONLY
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1

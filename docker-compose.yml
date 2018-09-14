@@ -1,0 +1,10 @@
+version: "2"
+
+services:
+
+  # DynamoDB database service configuration
+  dynamoDB:
+    container_name: example_container
+    image: amazon/dynamodb-local
+    ports:
+      - "8000:8000"
